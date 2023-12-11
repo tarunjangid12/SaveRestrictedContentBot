@@ -147,7 +147,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             return
         except PeerIdInvalid:
             chat = int(msg_link.split("/")[-3])
-                new_link = f"t.me/c/{chat}/{msg_id}"
+            new_link = f"t.me/c/{chat}/{msg_id}"
             try:
                 int(chat)
             except ValueError:
