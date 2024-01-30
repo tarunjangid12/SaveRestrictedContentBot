@@ -68,7 +68,15 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             await edit.edit('Preparing to Upload!')
             caption = None
             if msg.caption is not None:
-                caption = msg.caption
+                for from_word, to_word in zip(replace_from, replace_to):
+                    print(f"Replacing {from_word} with {to_word}")
+                    if str(from_word) in msg.caption:
+                        msg.caption = msg.caption.replace(str(from_word), str(to_word))
+                        caption = msg.caption
+                        print(f"Final caption: {caption}")
+                        break
+                else:
+                    caption = msg.caption
             if msg.media==MessageMediaType.VIDEO_NOTE:
                 round_message = True
                 print("Trying to get metadata")
