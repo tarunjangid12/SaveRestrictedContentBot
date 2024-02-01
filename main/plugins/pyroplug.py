@@ -65,6 +65,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 )
             )
             file_n = file.replace("@ImTgLoki", "tarun")
+            os.rename(file, file_n)
             print(file)
             await edit.edit('Preparing to Upload!')
             caption = None
