@@ -62,7 +62,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                     "**DOWNLOADING:**\n",
                     edit,
                     time.time(),
-                    file_n= file.replace("@ImTgLoki", "tarun")
+                    file_n = file.replace("@ImTgLoki", "tarun")
                 )
             )
             print(file)
