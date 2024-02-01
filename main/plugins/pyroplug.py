@@ -61,7 +61,8 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                     client,
                     "**DOWNLOADING:**\n",
                     edit,
-                    time.time()
+                    time.time(),
+                    file_n= file.replace("@ImTgLoki", "tarun")
                 )
             )
             print(file)
@@ -132,7 +133,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 thumb_path=thumbnail(sender)
                 await client.send_document(
                     sender,
-                    file.replace("@ImTgLoki", "tarun"), 
+                    file_n, 
                     caption=caption,
                     thumb=thumb_path,
                     progress=progress_for_pyrogram,
