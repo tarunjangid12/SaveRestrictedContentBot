@@ -61,10 +61,10 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                     client,
                     "**DOWNLOADING:**\n",
                     edit,
-                    time.time(),
-                    file_n = file.replace("@ImTgLoki", "tarun")
+                    time.time()
                 )
             )
+            file_n = file.replace("@ImTgLoki", "tarun")
             print(file)
             await edit.edit('Preparing to Upload!')
             caption = None
