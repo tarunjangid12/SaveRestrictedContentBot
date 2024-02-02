@@ -12,7 +12,7 @@ from pyrogram.enums import MessageMediaType
 from ethon.pyfunc import video_metadata
 from ethon.telefunc import fast_upload
 from telethon.tl.types import DocumentAttributeVideo
-from telethon import event
+from telethon import events
 
 @userbot.on_message(filters.command("file"))
 async def file_command_handler(client, message):
