@@ -12,7 +12,31 @@ from pyrogram.enums import MessageMediaType
 from ethon.pyfunc import video_metadata
 from ethon.telefunc import fast_upload
 from telethon.tl.types import DocumentAttributeVideo
-from telethon import events
+from telethon import event
+
+@userbot.on_message(filters.command("file"))
+async def file_command_handler(client, message):
+    # Display the current values
+    current_values = f"Current values:\nReplace from: {file_from}\nReplace to: {file_to}"
+    await message.reply(current_values)
+
+    # Ask the user for new values
+    await message.reply("Reply with new values for replace_from and replace_to, separated by a space.")
+
+# Add the reply handler
+@userbot.on_message(filters.reply & filters.text)
+async def reply_handler(client, message):
+    global file_from, file_to
+
+    # Assuming the user replied with new values separated by a space
+    new_values = message.text.split()
+
+    if len(new_values) == 2:
+        file_from, file_to = new_values
+        await message.reply("Values updated successfully!")
+    else:
+        await message.reply("Invalid input. Please provide two values separated by a space.")
+
 
 def thumbnail(sender):
     if os.path.exists(f'{sender}.jpg'):
