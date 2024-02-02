@@ -20,6 +20,8 @@ FORCESUB = config("FORCESUB", default=None)
 AUTH = [int(user_id.strip()) for user_id in config("AUTH", default="").split(",") if user_id.strip()]
 replace_from = [word.strip() for word in config("replace_from", default="").split(',')]
 replace_to = [word.strip() for word in config("replace_to", default="").split(',')]
+file_from = [word.strip() for word in config("file_from", default="").split(',')]
+file_to = [word.strip() for word in config("file_to", default="").split(',')]
 bot = TelegramClient('bot', API_ID, API_HASH).start(bot_token=BOT_TOKEN) 
 
 userbot = Client("saverestricted", session_string=SESSION, api_hash=API_HASH, api_id=API_ID) 
