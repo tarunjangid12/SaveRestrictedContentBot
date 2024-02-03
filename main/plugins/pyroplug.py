@@ -95,8 +95,8 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 )
             )
             for Rs, Ds in zip(file_from, file_to):
-                file_n = file.replace(str(Rs), str(Ds))
-            os.rename(file, file_n)
+       
+            os.rename(file, file.replace(str(Rs), str(Ds))
             print(file)
             await edit.edit('Preparing to Upload!')
             caption = None
@@ -165,7 +165,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 thumb_path=thumbnail(sender)
                 await client.send_document(
                     sender,
-                    file_n, 
+                    file, 
                     caption=caption,
                     thumb=thumb_path,
                     progress=progress_for_pyrogram,
