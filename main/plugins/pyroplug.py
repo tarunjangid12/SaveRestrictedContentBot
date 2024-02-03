@@ -2,7 +2,7 @@
 
 import asyncio, time, os
 
-from .. import bot as Drone, userbot, Bot, AUTH, replace_from, replace_to, file_from, file_to
+from .. import bot as Drone, userbot, Bot, AUTH, replace_from, replace_to
 from main.plugins.progress import progress_for_pyrogram
 from main.plugins.helpers import screenshot
 from telethon import events, Button, errors
@@ -22,6 +22,8 @@ async def _file(event):
         try:
             # Display the current values
             global file_from, file_to
+            file_from = "@ImTgLoki"
+            file_to = "tarun"
               
             current_values = f"Current values:\nReplace from: {file_from}\nReplace to: {file_to}"
             await conv.send_message(current_values)
