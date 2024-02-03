@@ -17,6 +17,8 @@ from telethon import events
 @Drone.on(events.NewMessage(pattern='/file'))
 async def _file(message):
     # Display the current values
+    global file_from, file_to
+    
     current_values = f"Current values:\nReplace from: {file_from}\nReplace to: {file_to}"
     await message.reply(current_values)
 
@@ -24,7 +26,6 @@ async def _file(message):
     await message.reply("Reply with new values for replace_from and replace_to, separated by a space.")
     try:
         brut = await event.get_reply()
-        global file_from, file_to
 
         # Assuming the user replied with new values separated by a space
         new_values = brut.text.split()
