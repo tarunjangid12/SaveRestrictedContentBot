@@ -2,7 +2,7 @@
 
 import asyncio, time, os
 
-from .. import bot as Drone, userbot, Bot, AUTH, replace_from, replace_to
+from .. import bot as Drone, userbot, Bot, AUTH, replace_from, replace_to, file_from, file_to
 from main.plugins.progress import progress_for_pyrogram
 from main.plugins.helpers import screenshot
 from telethon import events, Button, errors
