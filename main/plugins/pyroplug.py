@@ -92,11 +92,11 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             if msg.media==MessageMediaType.VIDEO_NOTE:
                 round_message = True
                 print("Trying to get metadata")
-                data = video_metadata(file)
+                data = video_metadata(file or file_n)
                 height, width, duration = data["height"], data["width"], data["duration"]
                 print(f'd: {duration}, w: {width}, h:{height}')
                 try:
-                    thumb_path = await screenshot(file, duration, sender)
+                    thumb_path = await screenshot(file or file_n, duration, sender)
                 except Exception:
                     thumb_path = None
                 await client.send_video_note(
@@ -114,11 +114,11 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 )
             elif msg.media==MessageMediaType.VIDEO and msg.video.mime_type in ["video/mp4", "video/x-matroska"]:
                 print("Trying to get metadata")
-                data = video_metadata(file)
+                data = video_metadata(file or file_n)
                 height, width, duration = data["height"], data["width"], data["duration"]
                 print(f'd: {duration}, w: {width}, h:{height}')
                 try:
-                    thumb_path = await screenshot(file, duration, sender)
+                    thumb_path = await screenshot(file or file_n, duration, sender)
                 except Exception:
                     thumb_path = None
                 await client.send_video(
@@ -139,7 +139,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             
             elif msg.media==MessageMediaType.PHOTO:
                 await edit.edit("Uploading photo.")
-                await bot.send_file(sender, file, caption=caption)
+                await bot.send_file(sender, file or file_n, caption=caption)
             else:
                 thumb_path=thumbnail(sender)
                 await client.send_document(
