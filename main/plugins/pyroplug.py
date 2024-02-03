@@ -2,9 +2,11 @@
 
 import asyncio, time, os
 
-from .. import bot as Drone, replace_from, replace_to, file_from, file_to
+from .. import bot as Drone, userbot, Bot, AUTH, replace_from, replace_to, file_from, file_to
 from main.plugins.progress import progress_for_pyrogram
 from main.plugins.helpers import screenshot
+from telethon import events, Button, errors
+from telethon.tl.types import DocumentAttributeVideo
 
 from pyrogram import Client, filters
 from pyrogram.errors import ChannelBanned, ChannelInvalid, ChannelPrivate, ChatIdInvalid, ChatInvalid, PeerIdInvalid
@@ -15,34 +17,36 @@ from telethon.tl.types import DocumentAttributeVideo
 from telethon import events
 
 @Drone.on(events.NewMessage(pattern='/file'))
-async def _file(message):
-    # Display the current values
-    global file_from, file_to
-    
-    current_values = f"Current values:\nReplace from: {file_from}\nReplace to: {file_to}"
-    await message.reply(current_values)
+async def _file(event):
+    async with Drone.conversation(event.chat_id) as conv:
+        try:
+            # Display the current values
+            global file_from, file_to
+              
+            current_values = f"Current values:\nReplace from: {file_from}\nReplace to: {file_to}"
+            await conv.reply(current_values)
 
-    # Ask the user for new values
-    await message.reply("Reply with new values for replace_from and replace_to, separated by a space.")
-    try:
-        brut = await message.get_reply()
+            # Ask the user for new values
+            await conv.reply("Reply with new values for replace_from and replace_to, separated by a space.")
 
-        # Assuming the user replied with new values separated by a space
-        new_values = brut.text.split()
+            brut = await conv.get_reply()
 
-        if len(new_values) == 2:
-            file_from, file_to = new_values
-            await message.reply("Values updated successfully!")
-        else:
-            await message.reply("Invalid input. Please provide two values separated by a space.")
-    except Exception as e:
-        await message.reply(f"An error occurred: {e}")
+            # Assuming the user replied with new values separated by a space
+            new_values = brut.text.split()
 
-    def thumbnail(sender):
-        if os.path.exists(f'{sender}.jpg'):
-            return f'{sender}.jpg'
-        else:
-             return None
+            if len(new_values) == 2:
+                file_from, file_to = new_values
+                await conv.reply("Values updated successfully!")
+            else:
+                 await conv.reply("Invalid input. Please provide two values separated by a space.")
+        except Exception as e:
+            await conv.reply(f"An error occurred: {e}")
+
+def thumbnail(sender):
+     if os.path.exists(f'{sender}.jpg'):
+         return f'{sender}.jpg'
+     else:
+          return None
       
 async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
     
