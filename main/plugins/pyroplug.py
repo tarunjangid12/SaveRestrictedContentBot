@@ -74,8 +74,8 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                     print(file_n)
                     break
                 else: 
-                    file = file
-                    print(file)
+                    file_n = file
+                    print(file_n)
                      
             await edit.edit('Preparing to Upload!')
             caption = None
