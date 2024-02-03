@@ -74,8 +74,8 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                     print(file_n)
                     break
                 else: 
-                    file_n = file
-                    print(file_n)
+                    file = file
+                    print(file)
                      
             await edit.edit('Preparing to Upload!')
             caption = None
@@ -144,7 +144,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 thumb_path=thumbnail(sender)
                 await client.send_document(
                     sender,
-                    file_n, 
+                    file_n or file, 
                     caption=caption,
                     thumb=thumb_path,
                     progress=progress_for_pyrogram,
@@ -156,11 +156,14 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                     )
                 )
             try:
-                os.remove(file_n)
-                if os.path.isfile(file_n) == True:
-                    os.remove(file_n)
+                os.remove(file)
+                if os.path.isfile(file) == True:
+                    os.remove(file)
             except Exception:
-                pass
+                try:
+                    os.remove(file_n)
+                except Exception:
+                    pass
             await edit.delete()
         except (ChannelBanned, ChannelInvalid, ChannelPrivate, ChatIdInvalid, ChatInvalid):
             await client.edit_message_text(sender, edit_id, "Have you joined the channel?")
