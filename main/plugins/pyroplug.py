@@ -25,7 +25,7 @@ async def _file(message):
     # Ask the user for new values
     await message.reply("Reply with new values for replace_from and replace_to, separated by a space.")
     try:
-        brut = await event.get_reply()
+        brut = await message.get_reply()
 
         # Assuming the user replied with new values separated by a space
         new_values = brut.text.split()
