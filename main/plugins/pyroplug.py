@@ -22,27 +22,26 @@ async def _file(message):
 
     # Ask the user for new values
     await message.reply("Reply with new values for replace_from and replace_to, separated by a space.")
+    try:
+        brut = await event.get_reply()
+        global file_from, file_to
 
-# Add the reply handler
-@Drone.on(events.NewMessage(filters.reply & filters.regex('.*')))
-async def reply_handler(message):
-    global file_from, file_to
+        # Assuming the user replied with new values separated by a space
+        new_values = brut.text.split()
 
-    # Assuming the user replied with new values separated by a space
-    new_values = message.text.split()
+        if len(new_values) == 2:
+            file_from, file_to = new_values
+            await message.reply("Values updated successfully!")
+        else:
+            await message.reply("Invalid input. Please provide two values separated by a space.")
+    except Exception as e:
+        await message.reply(f"An error occurred: {e}")
 
-    if len(new_values) == 2:
-        file_from, file_to = new_values
-        await message.reply("Values updated successfully!")
-    else:
-        await message.reply("Invalid input. Please provide two values separated by a space.")
-
-
-def thumbnail(sender):
-    if os.path.exists(f'{sender}.jpg'):
-        return f'{sender}.jpg'
-    else:
-         return None
+    def thumbnail(sender):
+        if os.path.exists(f'{sender}.jpg'):
+            return f'{sender}.jpg'
+        else:
+             return None
       
 async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
     
