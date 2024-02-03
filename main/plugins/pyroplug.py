@@ -101,7 +101,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                     thumb_path = None
                 await client.send_video_note(
                     chat_id=sender,
-                    video_note=file,
+                    video_note=file or file_n,
                     length=height, duration=duration, 
                     thumb=thumb_path,
                     progress=progress_for_pyrogram,
@@ -123,7 +123,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                     thumb_path = None
                 await client.send_video(
                     chat_id=sender,
-                    video=file,
+                    video=file or file_n,
                     caption=caption,
                     supports_streaming=True,
                     height=height, width=width, duration=duration, 
