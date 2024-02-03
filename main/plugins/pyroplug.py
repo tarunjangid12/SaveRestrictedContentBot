@@ -68,8 +68,15 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 )
             )
             for Rs, Ds in zip(file_from, file_to):
-                os.rename(file, file.replace(str(Rs), str(Ds)))
-                print(file)
+                if str(Rs) in file:
+                    file_n = file.replace(str(Rs), str(Ds))
+                    os.rename(file, file_n)
+                    print(file_n)
+                     break
+                else: 
+                    file_n = file
+                    print(file_n)
+                     
             await edit.edit('Preparing to Upload!')
             caption = None
             if msg.caption is not None:
@@ -137,7 +144,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 thumb_path=thumbnail(sender)
                 await client.send_document(
                     sender,
-                    file, 
+                    file_n, 
                     caption=caption,
                     thumb=thumb_path,
                     progress=progress_for_pyrogram,
@@ -149,9 +156,9 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                     )
                 )
             try:
-                os.remove(file)
-                if os.path.isfile(file) == True:
-                    os.remove(file)
+                os.remove(file_n)
+                if os.path.isfile(file_n) == True:
+                    os.remove(file_n)
             except Exception:
                 pass
             await edit.delete()
