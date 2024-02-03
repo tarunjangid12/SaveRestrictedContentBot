@@ -14,8 +14,8 @@ from ethon.telefunc import fast_upload
 from telethon.tl.types import DocumentAttributeVideo
 from telethon import events
 
-@Drone.on(events.NewMessage(filters.command("file")))
-async def file_command_handler(client, message):
+@Drone.on(events.NewMessage(pattern='/file'))
+async def _file(message):
     # Display the current values
     current_values = f"Current values:\nReplace from: {file_from}\nReplace to: {file_to}"
     await message.reply(current_values)
@@ -24,8 +24,8 @@ async def file_command_handler(client, message):
     await message.reply("Reply with new values for replace_from and replace_to, separated by a space.")
 
 # Add the reply handler
-@Drone.on(events.NewMessage(filters.reply & filters.text))
-async def reply_handler(client, message):
+@Drone.on(events.NewMessage(filters.reply & filters.regex('.*')))
+async def reply_handler(message):
     global file_from, file_to
 
     # Assuming the user replied with new values separated by a space
