@@ -92,16 +92,16 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             if msg.media==MessageMediaType.VIDEO_NOTE:
                 round_message = True
                 print("Trying to get metadata")
-                data = video_metadata(file or file_n)
+                data = video_metadata(file_n or file)
                 height, width, duration = data["height"], data["width"], data["duration"]
                 print(f'd: {duration}, w: {width}, h:{height}')
                 try:
-                    thumb_path = await screenshot(file or file_n, duration, sender)
+                    thumb_path = await screenshot(file_n or file, duration, sender)
                 except Exception:
                     thumb_path = None
                 await client.send_video_note(
                     chat_id=sender,
-                    video_note=file or file_n,
+                    video_note=file_n or file,
                     length=height, duration=duration, 
                     thumb=thumb_path,
                     progress=progress_for_pyrogram,
@@ -114,16 +114,16 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 )
             elif msg.media==MessageMediaType.VIDEO and msg.video.mime_type in ["video/mp4", "video/x-matroska"]:
                 print("Trying to get metadata")
-                data = video_metadata(file or file_n)
+                data = video_metadata(file_n or file)
                 height, width, duration = data["height"], data["width"], data["duration"]
                 print(f'd: {duration}, w: {width}, h:{height}')
                 try:
-                    thumb_path = await screenshot(file or file_n, duration, sender)
+                    thumb_path = await screenshot(file_n or file, duration, sender)
                 except Exception:
                     thumb_path = None
                 await client.send_video(
                     chat_id=sender,
-                    video=file or file_n,
+                    video=file_n or file,
                     caption=caption,
                     supports_streaming=True,
                     height=height, width=width, duration=duration, 
@@ -139,7 +139,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             
             elif msg.media==MessageMediaType.PHOTO:
                 await edit.edit("Uploading photo.")
-                await bot.send_file(sender, file or file_n, caption=caption)
+                await bot.send_file(sender, file_n or file, caption=caption)
             else:
                 thumb_path=thumbnail(sender)
                 await client.send_document(
