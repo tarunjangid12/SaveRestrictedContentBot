@@ -24,10 +24,10 @@ async def _file(event):
             global file_from, file_to
               
             current_values = f"Current values:\nReplace from: {file_from}\nReplace to: {file_to}"
-            await conv.reply(current_values)
+            await conv.send_message(current_values)
 
             # Ask the user for new values
-            await conv.reply("Reply with new values for replace_from and replace_to, separated by a space.")
+            await conv.send_message("Reply with new values for replace_from and replace_to, separated by a space.")
 
             brut = await conv.get_reply()
 
@@ -36,11 +36,11 @@ async def _file(event):
 
             if len(new_values) == 2:
                 file_from, file_to = new_values
-                await conv.reply("Values updated successfully!")
+                await conv.send_message("Values updated successfully!")
             else:
-                 await conv.reply("Invalid input. Please provide two values separated by a space.")
+                 await conv.send_message("Invalid input. Please provide two values separated by a space.")
         except Exception as e:
-            await conv.reply(f"An error occurred: {e}")
+            await conv.send_message(f"An error occurred: {e}")
 
 def thumbnail(sender):
      if os.path.exists(f'{sender}.jpg'):
