@@ -16,33 +16,6 @@ from ethon.telefunc import fast_upload
 from telethon.tl.types import DocumentAttributeVideo
 from telethon import events
 
-@Drone.on(events.NewMessage(pattern='/file'))
-async def _file(event):
-    async with Drone.conversation(event.chat_id) as conv:
-        try:
-            # Display the current values
-            global file_from, file_to
-            file_from = "@ImTgLoki"
-            file_to = "tarun"
-              
-            current_values = f"Current values:\nReplace from: {file_from}\nReplace to: {file_to}"
-            await conv.send_message(current_values)
-
-            # Ask the user for new values
-            await conv.send_message("Reply with new values for replace_from and replace_to, separated by a space.")
-
-            brut = await conv.get_reply()
-
-            # Assuming the user replied with new values separated by a space
-            new_values = brut.text.split()
-
-            if len(new_values) == 2:
-                file_from, file_to = new_values
-                await conv.send_message("Values updated successfully!")
-            else:
-                 await conv.send_message("Invalid input. Please provide two values separated by a space.")
-        except Exception as e:
-            await conv.send_message(f"An error occurred: {e}")
 
 def thumbnail(sender):
      if os.path.exists(f'{sender}.jpg'):
@@ -96,7 +69,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             )
             for Rs, Ds in zip(file_from, file_to):
        
-            os.rename(file, file.replace(str(Rs), str(Ds))
+            os.rename(file, file.replace(str(Rs), str(Ds)))
             print(file)
             await edit.edit('Preparing to Upload!')
             caption = None
