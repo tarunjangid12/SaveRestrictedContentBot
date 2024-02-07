@@ -210,7 +210,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
         chat =  msg_link.split("/")[-2]
         try:
             msg = await client.copy_message(sender, chat, msg_id)
-            if msg.empty:
+            if msg is None or msg.empty:
                 new_link = f't.me/b/{chat}/{int(msg_id)}'
                 #recurrsion 
                 return await get_msg(userbot, client, bot, sender, edit_id, new_link, i)
