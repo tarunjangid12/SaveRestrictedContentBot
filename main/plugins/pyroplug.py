@@ -2,7 +2,7 @@
 
 import asyncio, time, os
 
-from .. import bot as Drone, replace_from, replace_to
+from .. import bot as Drone, replace_from, replace_to, file_from, file_to
 from main.plugins.progress import progress_for_pyrogram
 from main.plugins.helpers import screenshot
 
@@ -64,7 +64,16 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                     time.time()
                 )
             )
-            print(file)
+            for Rs, Ds in zip(file_from, file_to):
+                if str(Rs) in file:
+                    file_n = file.replace(str(Rs), str(Ds))
+                    os.rename(file, file_n)
+                    print(file_n)
+                    break
+                else: 
+                    file_n = file
+                    print(file_n)
+                    
             await edit.edit('Preparing to Upload!')
             caption = None
             if msg.caption is not None:
