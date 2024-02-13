@@ -73,6 +73,10 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                     file_a = file.replace(str(Rs), str(Ds))
                     os.rename(file, file_a)
                     print(file_a)
+                else:
+                     file_a = file
+            for Rs, Ds in zip(file_from, file_to):
+                if str(Rs) in file:         
                     file_n = file_a.replace(str(Rs), str(Ds))
                     os.rename(file_a, file_n)
                     print(file_n)
@@ -148,7 +152,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 thumb_path=thumbnail(sender)
                 await client.send_document(
                     sender,
-                    file_n, 
+                    file_n or file_a, 
                     caption=caption,
                     thumb=thumb_path,
                     progress=progress_for_pyrogram,
