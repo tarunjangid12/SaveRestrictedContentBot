@@ -78,7 +78,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
 
              #New approach
             for Rs, Ds in zip(file_from, file_to):
-                if str(Rs) in file:         
+                if str(Rs) in file_a:         
                     file_n = file_a.replace(str(Rs), str(Ds))
                     os.rename(file_a, file_n)
                     print(file_n)
