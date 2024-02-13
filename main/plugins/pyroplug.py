@@ -1,6 +1,7 @@
 #Github.com-Vasusen-code
 
 import asyncio, time, os
+from functools import reduce
 
 from .. import bot as Drone, userbot, Bot, AUTH, replace_from, replace_to, file_from, file_to
 from main.plugins.progress import progress_for_pyrogram
@@ -67,15 +68,20 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                     time.time()
                 )
             )
-            for Rs, Ds in zip(file_from, file_to):
-                if str(Rs) in file:
-                    file_n = file.replace(str(Rs), str(Ds))
+            replace_words = lambda txt, x, y: txt.replace(x, y)
+            file_n = reduce(replace_words, zip(file_from, file_to), file)
+
+
+            #for Rs, Ds in zip(file_from, file_to):
+               # if str(Rs) in file:
+                    #file_n = file.replace(str(Rs), str(Ds))
                     
-                    print(file_n)
-                    break
-                else: 
-                    file_n = file
-                    print(file_n)
+                    #print(file_n)
+                    #break
+                #else: 
+                    #file_n = file
+
+                    #print(file_n)
 
             #check
             os.rename(file, file_n)        
