@@ -73,6 +73,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                     file_a = file.replace(str(Rs), str(Ds))
                     os.rename(file, file_a)
                     print(file_a)
+                    break
                 else:
                      file_a = file
 
