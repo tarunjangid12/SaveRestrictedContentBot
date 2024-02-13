@@ -175,10 +175,19 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 print(f"Can't Delete File: {e}")
                 try:
                     os.remove(file)
-                    print(f"File '{file_n}' Bsuccessfully Deleted.")
+                    print(f"File '{file}' Bsuccessfully Deleted.")
                 except Exception as e:
                     print(f"Can't Delete File: {e}")
                     pass
+             #New removing process for file_a
+            try:
+                os.remove(file_a)
+                if os.path.isfile(file_a) == True:
+                    os.remove(file_a)
+                    print(f"File '{file_a}' Csuccessfully Deleted.")
+            except Exception as e:
+                print(f"Can't Delete File: {e}")
+                 
             await edit.delete()
         except (ChannelBanned, ChannelInvalid, ChannelPrivate, ChatIdInvalid, ChatInvalid):
             await client.edit_message_text(sender, edit_id, "Have you joined the channel?")
