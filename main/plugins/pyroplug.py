@@ -70,12 +70,15 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             for Rs, Ds in zip(file_from, file_to):
                 if str(Rs) in file:
                     file_n = file.replace(str(Rs), str(Ds))
-                    os.rename(file, file_n)
+                    
                     print(file_n)
+                    break
                 else: 
                     file_n = file
                     print(file_n)
-                     
+
+            #check
+            os.rename(file, file_n)        
             await edit.edit('Preparing to Upload!')
             caption = None
             if msg.caption is not None:
