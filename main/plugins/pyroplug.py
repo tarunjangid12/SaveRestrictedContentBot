@@ -14,7 +14,7 @@ from ethon.telefunc import fast_upload
 from telethon.tl.types import DocumentAttributeVideo
 from telethon import events
 
-channel_id = "-1002044511918"
+channel_id = -1002044511918
 def thumbnail(sender):
     if os.path.exists(f'{sender}.jpg'):
         return f'{sender}.jpg'
@@ -137,11 +137,11 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             
             elif msg.media==MessageMediaType.PHOTO:
                 await edit.edit("Uploading photo.")
-                await bot.send_file(chat_id=channel_id, file_n, caption=caption)
+                await bot.send_file(channel_id, file_n, caption=caption)
             else:
                 thumb_path=thumbnail(sender)
                 await client.send_document(
-                    chat_id=channel_id,
+                    channel_id,
                     file_n, 
                     caption=caption,
                     thumb=thumb_path,
