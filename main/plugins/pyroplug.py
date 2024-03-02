@@ -14,7 +14,7 @@ from ethon.telefunc import fast_upload
 from telethon.tl.types import DocumentAttributeVideo
 from telethon import events
 
-channel_id = -1002044511918
+channel_id = -1002065486656
 def thumbnail(sender):
     if os.path.exists(f'{sender}.jpg'):
         return f'{sender}.jpg'
@@ -227,7 +227,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
         edit = await client.edit_message_text(sender, edit_id, "Cloning.")
         chat =  msg_link.split("/")[-2]
         try:
-            msg = await client.copy_message(sender, chat, msg_id)
+            msg = await client.copy_message(channel_id, chat, msg_id)
             if msg is None or msg.empty:
                 new_link = f't.me/b/{chat}/{int(msg_id)}'
                 #recurrsion 
