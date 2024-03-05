@@ -57,22 +57,22 @@ async def sett(event):
 @Drone.on(events.NewMessage(incoming=True, pattern='/remthumb'))
 async def remt(event):  
     Drone = event.client            
-    await event.edit('Trying.')
+    t = await event.client.send_message(event.chat_id, 'Trying.')
     try:
         os.remove(f'{event.sender_id}.jpg')
-        await event.edit('Removed!')
+        await t.edit('Removed!')
     except Exception:
-        await event.edit("No thumbnail saved.")
+        await t.edit("No thumbnail saved.")
         
 @Drone.on(events.callbackquery.CallbackQuery(data="rem"))
 async def remt(event):  
     Drone = event.client            
-    await event.edit('Trying.')
+    t = await event.client.send_message(event.chat_id, 'Trying.')
     try:
         os.remove(f'{event.sender_id}.jpg')
-        await event.edit('Removed!')
+        await t.edit('Removed!')
     except Exception:
-        await event.edit("No thumbnail saved.")                        
+        await t.edit("No thumbnail saved.")                        
   
 @Drone.on(events.NewMessage(incoming=True, pattern=f"{S}"))
 async def start(event):
