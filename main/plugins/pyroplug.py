@@ -15,6 +15,10 @@ from telethon.tl.types import DocumentAttributeVideo
 from telethon import events
 
 channel_id = -1002065486656
+# Define the initial channel ID
+channel_id = -1002065486656
+
+
 def thumbnail(sender):
     if os.path.exists(f'{sender}.jpg'):
         return f'{sender}.jpg'
@@ -240,3 +244,21 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
 async def get_bulk_msg(userbot, client, sender, msg_link, i):
     x = await client.send_message(sender, "Processing!")
     await get_msg(userbot, client, Drone, sender, x.id, msg_link, i)
+
+# Define the initial channel ID
+channel_id = -1002065486656
+
+@Drone.on(events.NewMessage(incoming=True, pattern='/changechannel'))
+async def changechannel(event):
+    global channel_id  # Use the global keyword to modify the global variable
+    try:
+        # Extract the new channel ID from the command
+        new_channel_id = event.text.split(' ')[1]
+        
+        # Convert the new_channel_id to an integer and update channel_id
+        channel_id = int(new_channel_id)
+        await event.reply(f"Channel ID updated to {channel_id}")
+    except IndexError:
+        await event.reply("Please provide a new channel ID after the /changechannel command.")
+    except ValueError:
+        await event.reply("Invalid channel id format, please provide valid integer id")
