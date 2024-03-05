@@ -9,7 +9,7 @@ from ethon.mystarts import start_srb
 S = '/' + 's' + 't' + 'a' + 'r' + 't'
 
 
-@Drone.on(events.NewMessage(incoming=True, from_users=AUTH, pattern='/set'))
+@Drone.on(events.NewMessage(incoming=True, pattern='/set'))
 async def sett(event):    
     Drone = event.client                    
     async with Drone.conversation(event.chat_id) as conv: 
