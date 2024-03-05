@@ -9,7 +9,7 @@ from ethon.mystarts import start_srb
 S = '/' + 's' + 't' + 'a' + 'r' + 't'
 
 
-@Drone.on(events.NewMessage(incoming=True, pattern='/set'))
+@Drone.on(events.NewMessage(incoming=True, pattern='/setthumb'))
 async def sett(event):    
     Drone = event.client                    
     async with Drone.conversation(event.chat_id) as conv: 
@@ -53,6 +53,16 @@ async def sett(event):
             os.remove(f'{event.sender_id}.jpg')
         os.rename(path, f'./{event.sender_id}.jpg')
         await t.edit("Temporary thumbnail saved!")
+
+@Drone.on(events.NewMessage(incoming=True, pattern='/remthumb'))
+async def remt(event):  
+    Drone = event.client            
+    await event.edit('Trying.')
+    try:
+        os.remove(f'{event.sender_id}.jpg')
+        await event.edit('Removed!')
+    except Exception:
+        await event.edit("No thumbnail saved.")
         
 @Drone.on(events.callbackquery.CallbackQuery(data="rem"))
 async def remt(event):  
