@@ -208,6 +208,10 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                         return
                     return 
             else:
+                if "This message doesn't contain any downloadable media" in str(e):
+                    print("No downloadable media found.")
+                else:
+                    print(e)
                 await client.edit_message_text(sender, edit_id, f'Failed to save: `{msg_link}`\n\nError: {str(e)}')
                 try:
                     os.remove(file)
