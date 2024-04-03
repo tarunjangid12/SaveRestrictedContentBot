@@ -202,7 +202,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                         await client.edit_message_text(sender, edit_id, f'Failed to save: `{msg_link}`\n\nError: {str(e)}')        
                     else: 
                         print("No downloadable media found.")
-                        await client.delete_messages_text(sender, edit_id)
+                        await client.delete_messages(sender, edit_id)
                         
                     try:
                         os.remove(file)
@@ -215,7 +215,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                     await client.edit_message_text(sender, edit_id, f'Failed to save: `{msg_link}`\n\nError: {str(e)}')
                 else:
                     print("No downloadable media found.")
-                    await client.delete_messages_text(sender, edit_id)
+                    await client.delete_messages(sender, edit_id)
                 try:
                     os.remove(file)
                 except Exception:
