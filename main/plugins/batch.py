@@ -99,6 +99,7 @@ async def run_batch(userbot, client, sender, link, _range):
             print(e)
             await client.send_message(sender, "Batch completed.")
             break
+        
         try:
             await get_bulk_msg(userbot, client, sender, link, i) 
         except FloodWait as fw:
@@ -106,6 +107,11 @@ async def run_batch(userbot, client, sender, link, _range):
                 await client.send_message(sender, "Cancelling batch since you have floodwait more than 5 minutes.")
                 break
             await asyncio.sleep(fw.value + 5)
+        except Exception as e:
+            if "This message doesn't contain any downloadable media" not in str(e):
+                # If the error message indicates no downloadable media, log the error only
+                print (e)
+                continue
             await get_bulk_msg(userbot, client, sender, link, i)
         protection = await client.send_message(sender, f"Sleeping for `{timer}` seconds to avoid Floodwaits and Protect account!")
         await asyncio.sleep(timer)
