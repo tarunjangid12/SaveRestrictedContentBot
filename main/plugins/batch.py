@@ -78,19 +78,26 @@ async def _batch(event):
             batch.clear()
 
 async def run_batch(userbot, client, sender, link, _range):
+    error_occurred = False
     for i in range(_range):
-        timer = 30
-        if i < 25: 
+        if error_occurred:
             timer = 2
-        if i < 50 and i > 25:
-            timer = 5
-        if i < 100 and i > 50:
-            timer = 15
-        if not 't.me/c/' in link:
-            if i < 25:
+            error_occurred = False  # Reset the flag after setting the timer to 2 seconds
+        else:
+            if i < 25: 
                 timer = 2
+            elif i < 50:
+                timer = 5
+            elif i < 100:
+                timer = 15
             else:
-                timer = 3
+                timer = 30
+            
+            if not 't.me/c/' in link:
+                if i < 25:
+                    timer = 2
+                else:
+                    timer = 3
         try: 
             if not sender in batch:
                 await client.send_message(sender, "Batch completed.")
