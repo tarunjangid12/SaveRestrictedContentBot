@@ -126,11 +126,11 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             elif msg.media==MessageMediaType.VIDEO_NOTE:
                 round_message = True
                 print("Trying to get metadata")
-                data = video_metadata(file_n)
+                data = video_metadata(file_a)
                 height, width, duration = data["height"], data["width"], data["duration"]
                 print(f'd: {duration}, w: {width}, h:{height}')
                 try:
-                    thumb_path = await screenshot(file_n, duration, sender)
+                    thumb_path = await screenshot(file_a, duration, sender)
                 except Exception:
                     thumb_path = None
                 await client.send_video_note(
@@ -176,7 +176,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 height, width, duration = data["height"], data["width"], data["duration"]
                 print(f'd: {duration}, w: {width}, h:{height}')
                 try:
-                    thumb_path = await screenshot(file_n, duration, sender)
+                    thumb_path = await screenshot(file_a, duration, sender)
                 except Exception:
                     thumb_path = None
                 await client.send_video(
@@ -197,7 +197,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             elif msg.media==MessageMediaType.PHOTO:
                 await edit.edit("Uploading photo.")
                 await bot.send_file(sender, file_n, caption=caption)
-            elif:
+            else:
                 thumb_path=thumbnail(sender)
                 await client.send_document(
                     sender,
@@ -214,7 +214,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 )
             elif msg.media==MessageMediaType.PHOTO:
                 await edit.edit("Uploading photo.")
-                await bot.send_file(sender, file_n, caption=caption)
+                await bot.send_file(sender, file_a, caption=caption)
             else:
                 thumb_path=thumbnail(sender)
                 await client.send_document(
