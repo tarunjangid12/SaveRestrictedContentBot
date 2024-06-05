@@ -123,6 +123,29 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                         time.time()
                     )
                 )
+            elif msg.media==MessageMediaType.VIDEO_NOTE:
+                round_message = True
+                print("Trying to get metadata")
+                data = video_metadata(file_n)
+                height, width, duration = data["height"], data["width"], data["duration"]
+                print(f'd: {duration}, w: {width}, h:{height}')
+                try:
+                    thumb_path = await screenshot(file_n, duration, sender)
+                except Exception:
+                    thumb_path = None
+                await client.send_video_note(
+                    chat_id=sender,
+                    video_note=file_a,
+                    length=height, duration=duration, 
+                    thumb=thumb_path,
+                    progress=progress_for_pyrogram,
+                    progress_args=(
+                        client,
+                        '**UPLOADING:**\n',
+                        edit,
+                        time.time()
+                    )
+                )
             elif msg.media==MessageMediaType.VIDEO and msg.video.mime_type in ["video/mp4", "video/x-matroska"]:
                 print("Trying to get metadata")
                 data = video_metadata(file_n)
