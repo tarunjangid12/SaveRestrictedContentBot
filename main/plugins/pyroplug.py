@@ -147,7 +147,30 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                         time.time()
                     )
                 )
-            
+            elif msg.media==MessageMediaType.VIDEO and msg.video.mime_type in ["video/mp4", "video/x-matroska"]:
+                print("Trying to get metadata")
+                data = video_metadata(file_a)
+                height, width, duration = data["height"], data["width"], data["duration"]
+                print(f'd: {duration}, w: {width}, h:{height}')
+                try:
+                    thumb_path = await screenshot(file_n, duration, sender)
+                except Exception:
+                    thumb_path = None
+                await client.send_video(
+                    chat_id=sender,
+                    video=file_a,
+                    caption=caption,
+                    supports_streaming=True,
+                    height=height, width=width, duration=duration, 
+                    thumb=thumb_path,
+                    progress=progress_for_pyrogram,
+                    progress_args=(
+                        client,
+                        '**UPLOADING:**\n',
+                        edit,
+                        time.time()
+                    )
+                )
             elif msg.media==MessageMediaType.PHOTO:
                 await edit.edit("Uploading photo.")
                 await bot.send_file(sender, file_n, caption=caption)
@@ -155,7 +178,26 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 thumb_path=thumbnail(sender)
                 await client.send_document(
                     sender,
-                    file_n or file_a, 
+                    file_n, 
+                    caption=caption,
+                    thumb=thumb_path,
+                    progress=progress_for_pyrogram,
+                    progress_args=(
+                        client,
+                        '**UPLOADING:**\n',
+                        edit,
+                        time.time()
+                    )
+                )
+
+            elif msg.media==MessageMediaType.PHOTO:
+                await edit.edit("Uploading photo.")
+                await bot.send_file(sender, file_n, caption=caption)
+            else:
+                thumb_path=thumbnail(sender)
+                await client.send_document(
+                    sender,
+                    file_a, 
                     caption=caption,
                     thumb=thumb_path,
                     progress=progress_for_pyrogram,
@@ -170,12 +212,12 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 os.remove(file_n)
                 if os.path.isfile(file_n) == True:
                     os.remove(file_n)
-                    print(f"File '{file_n}' Asuccessfully Deleted.")
+                    print(f"File '{file_n}' AA successfully Deleted.")
             except Exception as e:
                 print(f"Can't Delete File: {e}")
                 try:
                     os.remove(file)
-                    print(f"File '{file}' Bsuccessfully Deleted.")
+                    print(f"File '{file}' BB successfully Deleted.")
                 except Exception as e:
                     print(f"Can't Delete File: {e}")
                     pass
@@ -184,7 +226,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 os.remove(file_a)
                 if os.path.isfile(file_a) == True:
                     os.remove(file_a)
-                    print(f"File '{file_a}' Csuccessfully Deleted.")
+                    print(f"File '{file_a}' CC successfully Deleted.")
             except Exception as e:
                 print(f"Can't Delete File: {e}")
                  
