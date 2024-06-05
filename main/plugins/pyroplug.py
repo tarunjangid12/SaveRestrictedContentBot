@@ -212,24 +212,6 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                         time.time()
                     )
                 )
-            elif msg.media==MessageMediaType.PHOTO:
-                await edit.edit("Uploading photo.")
-                await bot.send_file(sender, file_a, caption=caption)
-            else:
-                thumb_path=thumbnail(sender)
-                await client.send_document(
-                    sender,
-                    file_a, 
-                    caption=caption,
-                    thumb=thumb_path,
-                    progress=progress_for_pyrogram,
-                    progress_args=(
-                        client,
-                        '**UPLOADING:**\n',
-                        edit,
-                        time.time()
-                    )
-                )
             try:
                 os.remove(file_n)
                 if os.path.isfile(file_n) == True:
