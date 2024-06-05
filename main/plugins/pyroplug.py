@@ -197,7 +197,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             elif msg.media==MessageMediaType.PHOTO:
                 await edit.edit("Uploading photo.")
                 await bot.send_file(sender, file_n, caption=caption)
-            else:
+            elif:
                 thumb_path=thumbnail(sender)
                 await client.send_document(
                     sender,
@@ -212,7 +212,6 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                         time.time()
                     )
                 )
-
             elif msg.media==MessageMediaType.PHOTO:
                 await edit.edit("Uploading photo.")
                 await bot.send_file(sender, file_n, caption=caption)
